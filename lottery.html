@@ -1,0 +1,133 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name='viewport' content="width=device-width, initial-scale=1">
+<link type="text/css" rel="stylesheet" href="stylesheet.css"/>
+<title>Lottery</title>
+<style type ="text/css">
+	html {background-color: #dfdfe5; font-family:"Gill Sans", Helvetica, Arial, "sans-serif"; text-align: center;}
+	
+</style>
+</head>
+
+<body>
+
+	<script language="javascript">
+
+		//SET UP CORRECT NUMBERS RANDOMLY
+		var correct = new Array(5);
+		var correct_lucky = Math.round(Math.random() * 17 + 1);
+
+		for (var i = 0; i < 5; i++) {
+			n = Math.random() * 47 + 1;
+
+			n = Math.round(n);
+
+			correct[i] = n;
+
+		}
+
+		document.write("<br>" + "The correct numbers are:" + "<br>");
+
+		correct = correct.sort(function(a,b){return a-b});
+		for (var i = 0; i < correct.length; i++) {
+			document.write(correct[i] + " ");
+		}
+
+		document.write("<br>");
+
+		document.write("Lucky Ball: " + correct_lucky + "<hr>" + "<br>");
+
+
+		//SET UP USER PICKED NUMBERS
+		var pick = prompt("enter five numbers (1-48): ");
+		var user_lucky = prompt("enter the lucky number (1-18): ");
+
+		var user_pick = pick.split(" ", 5);	
+
+		document.write("Your pick was:" + "<br>");
+
+		user_pick = user_pick.sort();
+		for (var i = 0; i < user_pick.length; i++) {
+			document.write(user_pick[i] + " ");
+		}
+
+		document.write("<br>" + "Lucky Ball: " + user_lucky + "<hr>" + "<br>");
+
+
+		//LOOK FOR MATCHING NUMBERS
+		var match_count = 0;
+		for (var i = 0; i < correct.length; i++) {
+			for (var j = 0; j < user_pick.length; j++) {
+				if (correct[i] == user_pick[j]) {
+					user_pick[j] = 0;
+					correct[i] = 0;
+					match_count++;
+				}
+			}
+		}
+
+		document.write("Matching Numbers: ");
+		if (match_count == 0) {
+			document.write("none" + "<br>");
+
+		} else {
+			document.write(match_count + "<br>");
+		}
+
+
+		//LOOK FOR MATCHING LUCKY BALL
+		lucky = false;
+		if (user_lucky == correct_lucky) {
+			document.write("The Lucky ball matched!!" + "<br>");
+			lucky = true;
+		}
+
+
+		//DETERMINE THE PRIZE
+		document.write("<br>");
+		if (match_count == 0 && lucky) {
+			document.write("Your Prize is: " + "$4");
+		} else if (match_count == 1 && lucky) {
+			document.write("Your Prize is: " + "$6");
+		} else if (match_count == 2) {
+			if (lucky) {
+				document.write("Your Prize is: " + "$25");
+			} else {
+				document.write("Your Prize is: " + "$3");
+			}
+		} else if (match_count == 3) {
+			if (lucky) {
+				document.write("Your Prize is: " + "$150");
+			} else {
+				document.write("Your Prize is: " + "$20");
+			}
+		} else if (match_count == 4) {
+			if (lucky) {
+				document.write("Your Prize is: " + "$5,000");
+			} else {
+				document.write("Your Prize is: " + "$200");
+			}
+		} else if (match_count == 5) {
+			if (lucky) {
+				document.write("Your Prize is: " + "$7,000 a WEEK for LIFE");
+			} else {
+				document.write("Your Prize is: " + "$25,000 a YEAR for LIFE");
+			}
+		} else {
+			document.write("No Prize, better luck next time!");
+		}
+		
+		document.write("<hr>");
+
+
+		
+	</script>
+
+
+
+
+</body>
+
+</html>
